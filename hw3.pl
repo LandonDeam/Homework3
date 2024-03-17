@@ -28,7 +28,8 @@ sum([H|T], SUM) :- sum(T,SUM2), SUM is H + SUM2.
 %    as part of your solution.
 % ** You can always assume that the given LST is not empty. 
 % max(LST, MAX).
-
+max([H], H).
+max([H|T], MAX) :- max(T, MAXT), maxnums(H, MAXT, MAX).
 
 % max([-5, -5, -5], MAX). -> MAX = -5
 % max([1], MAX). -> MAX = 1
@@ -41,7 +42,10 @@ sum([H|T], SUM) :- sum(T,SUM2), SUM is H + SUM2.
 %    as part of your solution.
 % ** You can always assume that the given LST is not empty. 
 % partitionable(LST).
-
+partitionable([H]).
+partitionable([H,H]).
+partitionable([H|Rest]) :- sum(Rest,H).
+partitionable([H|Rest]) :- append(Rest, [H], Rotate), partitionable(Rotate).
  
 % partitionable([1, 2, 3, 4, 10]). -> true. because [10, 10]
 % partitionable([2, 1, 1]). -> true. because [2, 2]
@@ -53,7 +57,8 @@ sum([H|T], SUM) :- sum(T,SUM2), SUM is H + SUM2.
 % Determine whether the given integer number does exist in the given 
 % list of integer numbers
 % elementExist(E, LST).
-
+elementExist(H, [H|_]).
+elementExist(Value, [H|T]) :- elementExist(T, Value).
 
 % elementExist(1, [1, 2, 3]). -> true.
 % elementExist(1, []). -> false.
@@ -62,7 +67,9 @@ sum([H|T], SUM) :- sum(T,SUM2), SUM is H + SUM2.
 % #6 (Undergraduate/Graduate) (5/5 pts)
 % Determine the reverse list of integer numbers
 % reverse(LST, REVLST).
-
+reverse([], []).
+reverse([E], [E]).
+reverse([E1|Rest],REVLST) :- reverse(Rest, REVLST1), append(REVLST1, [E1], REVLST).
 
 % reverse([], REVLST). -> REVLST = []
 % reverse([1, 1, 1], REVLST). -> REVLST = [1, 1, 1]
