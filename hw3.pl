@@ -19,7 +19,6 @@ maxnums(A, B, MAX) :-
 % Determine the summation of a list of integer numbers
 % sum(LST, SUM).
 sum([], 0).
-sum([H], H).
 sum([H|T], SUM) :-
     sum(T,SUM2),
     SUM is H + SUM2.
