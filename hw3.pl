@@ -49,14 +49,14 @@ max([H|T], MAX) :-
 %    as part of your solution.
 % ** You can always assume that the given LST is not empty. 
 % partitionable(LST).
-partitionable([H]).
-partitionable([H,H]).
-partitionable([H|Rest]) :-
-    sum(Rest,H).
-partitionable([H|Rest]) :-
-    append(Rest, [H], Rotate),
-    partitionable(Rotate).
- 
+partitionable([]).
+partitionable(LST) :- % This predicate was partially written by ChatGPT
+    append(L, R, LST),
+    sum(L, LSum),
+    sum(R, RSum),
+    LSum =:= RSum,
+    !.
+partitionable([_]).
 % partitionable([1, 2, 3, 4, 10]). -> true. because [10, 10]
 % partitionable([2, 1, 1]). -> true. because [2, 2]
 % partitionable([0]). -> true.
